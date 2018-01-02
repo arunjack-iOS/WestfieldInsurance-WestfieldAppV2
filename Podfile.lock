@@ -1,0 +1,23 @@
+PODS:
+  - box-ios-sdk (1.0.14):
+    - box-ios-sdk/logger (= 1.0.14)
+    - box-ios-sdk/no-arc (= 1.0.14)
+  - box-ios-sdk/logger (1.0.14)
+  - box-ios-sdk/no-arc (1.0.14):
+    - box-ios-sdk/logger
+  - JSONWebToken (2.2.0)
+  - youtube-ios-player-helper (0.1.6)
+
+DEPENDENCIES:
+  - box-ios-sdk
+  - JSONWebToken
+  - youtube-ios-player-helper (~> 0.1.4)
+
+SPEC CHECKSUMS:
+  box-ios-sdk: 8034a7b0fcac562105725afa744011c81da99398
+  JSONWebToken: 6fae32489632658d563dd6952a5c34020ea813e4
+  youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
+
+PODFILE CHECKSUM: 108aefba79c71ae735d608b4c4f89a1b0b74726c
+
+COCOAPODS: 1.1.1
