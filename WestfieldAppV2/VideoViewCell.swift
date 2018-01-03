@@ -90,7 +90,7 @@ class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
         
         self.videoView.layer.cornerRadius = 4.0
         self.videoView.layer.borderColor = UIColor.iwiSilver.cgColor
-        self.videoView.layer.borderWidth = 1.0
+        self.videoView.layer.borderWidth = 0.5
         self.videoView.clipsToBounds = true
         
         if videoId == nil {
@@ -152,7 +152,7 @@ class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
             let shareView = UIView(frame: CGRect(x: 0, y: yVal, width: frame.size.width - 40, height: 45))
             shareView.backgroundColor = UIColor.white
             
-            let lineView = UIView(frame: CGRect(x: 0, y: 0, width: shareView.frame.size.width, height: 1))
+            let lineView = UIView(frame: CGRect(x: 0, y: 0, width: shareView.frame.size.width, height: 0.5))
             lineView.backgroundColor = UIColor.iwiSilver
             shareView.addSubview(lineView)
             

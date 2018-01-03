@@ -67,6 +67,7 @@
 		B4BE3BFE1FF56C3B004A5390 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BE3BFD1FF56C3B004A5390 /* SettingsViewController.swift */; };
 		B4BE3C001FF56E6F004A5390 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BE3BFF1FF56E6F004A5390 /* ProgressViewController.swift */; };
 		B4BE3C021FF56F12004A5390 /* ToolboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BE3C011FF56F12004A5390 /* ToolboxViewController.swift */; };
+		B4F2A96F1FFD1DBD00FFEC51 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2A96E1FFD1DBD00FFEC51 /* RatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -147,6 +148,7 @@
 		B4BE3BFD1FF56C3B004A5390 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B4BE3BFF1FF56E6F004A5390 /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
 		B4BE3C011FF56F12004A5390 /* ToolboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxViewController.swift; sourceTree = "<group>"; };
+		B4F2A96E1FFD1DBD00FFEC51 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		F75887B232FFC811088F44D1 /* Pods-WestfieldAppV2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WestfieldAppV2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WestfieldAppV2/Pods-WestfieldAppV2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -260,6 +262,7 @@
 				B4169FEA1FF2B9EB00B6A809 /* RadioButton.swift */,
 				B4169FE61FF2B9E800B6A809 /* RegexParser.swift */,
 				B4169FEB1FF2B9EB00B6A809 /* StringTrimExtension.swift */,
+				B4F2A96E1FFD1DBD00FFEC51 /* RatingView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				B4BE3C001FF56E6F004A5390 /* ProgressViewController.swift in Sources */,
 				B4169FFA1FF2B9F100B6A809 /* StringTrimExtension.swift in Sources */,
 				B4169FF51FF2B9F100B6A809 /* RegexParser.swift in Sources */,
+				B4F2A96F1FFD1DBD00FFEC51 /* RatingView.swift in Sources */,
 				B4169FFB1FF2B9F100B6A809 /* ActiveType.swift in Sources */,
 				B4169FC91FF26F1200B6A809 /* Settings.swift in Sources */,
 				B4169FE11FF2B7F200B6A809 /* WatsonChatViewCell.swift in Sources */,

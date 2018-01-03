@@ -21,6 +21,7 @@ class WatsonChatDetailViewController: UIViewController, UIWebViewDelegate {
     
     @IBOutlet weak var detailTable: UITableView!
     
+    @IBOutlet weak var feedbackRatingView: RatingView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,12 @@ class WatsonChatDetailViewController: UIViewController, UIWebViewDelegate {
         detailTable.rowHeight = UITableViewAutomaticDimension
         detailTable.estimatedRowHeight = 140
         detailTable.scrollsToTop = false
+
+        
+        feedbackRatingView.backgroundColor = UIColor.clear
+        feedbackRatingView.delegate = self
+        feedbackRatingView.contentMode = UIViewContentMode.scaleAspectFit
+        feedbackRatingView.type = .fullRatings
 
         
     }
@@ -238,5 +245,9 @@ extension WatsonChatDetailViewController{
         }
         return nil
     }
+    
+}
+
+extension WatsonChatDetailViewController: RatingViewDelegate {
     
 }

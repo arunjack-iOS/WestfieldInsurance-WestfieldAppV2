@@ -287,7 +287,7 @@ class WatsonChatViewCell: UITableViewCell {
         optionView.widthAnchor.constraint(equalToConstant: resizedWidth).isActive = true
         optionView.heightAnchor.constraint(equalToConstant: 45.0).isActive = true
        
-        let lineView = UIView(frame: CGRect(x: 0, y: 0, width: resizedWidth, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: 0, width: resizedWidth, height: 0.5))
         lineView.backgroundColor = UIColor.iwiSilver
         optionView.addSubview(lineView)
 
