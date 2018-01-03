@@ -602,15 +602,56 @@
                                 <rect key="frame" x="10" y="30" width="355" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tYm-73-rLz">
+                                <rect key="frame" x="0.0" y="40" width="375" height="470"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="VideoViewCell" rowHeight="273" id="9ac-wY-Kvj" userLabel="VideoViewCell" customClass="VideoViewCell" customModule="WestfieldAppV2">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="273"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9ac-wY-Kvj" id="wg4-Nw-o7t">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="273"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ho-qt-EUP">
+                                                    <rect key="frame" x="20" y="1" width="335" height="270.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="4ho-qt-EUP" firstAttribute="leading" secondItem="wg4-Nw-o7t" secondAttribute="leading" constant="20" id="0X1-zG-ZBP"/>
+                                                <constraint firstAttribute="bottom" secondItem="4ho-qt-EUP" secondAttribute="bottom" constant="1" id="Dom-Xy-sXg"/>
+                                                <constraint firstItem="4ho-qt-EUP" firstAttribute="top" secondItem="wg4-Nw-o7t" secondAttribute="top" constant="1" id="MdF-XJ-bDt"/>
+                                                <constraint firstAttribute="trailing" secondItem="4ho-qt-EUP" secondAttribute="trailing" constant="20" id="rUS-SP-FoI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="videoView" destination="4ho-qt-EUP" id="drm-EB-Z57"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jeU-ku-krA" id="LZB-gt-ndc"/>
+                                    <outlet property="delegate" destination="jeU-ku-krA" id="Sbj-fd-VhF"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="tYm-73-rLz" firstAttribute="top" secondItem="bd9-xn-M1v" secondAttribute="top" constant="20" id="0lV-HJ-c0l"/>
                             <constraint firstItem="Yof-2f-n9w" firstAttribute="top" secondItem="bd9-xn-M1v" secondAttribute="top" constant="10" id="1yn-8Y-WgA"/>
+                            <constraint firstItem="ggP-y7-Zd8" firstAttribute="top" secondItem="tYm-73-rLz" secondAttribute="bottom" constant="73" id="2IN-17-tkT"/>
+                            <constraint firstItem="tYm-73-rLz" firstAttribute="leading" secondItem="bd9-xn-M1v" secondAttribute="leading" id="4Ut-7y-chO"/>
                             <constraint firstItem="bd9-xn-M1v" firstAttribute="trailing" secondItem="ggP-y7-Zd8" secondAttribute="trailing" constant="10" id="FFy-g2-AbF"/>
                             <constraint firstItem="bd9-xn-M1v" firstAttribute="bottom" secondItem="k6D-Zy-efs" secondAttribute="bottom" constant="10" id="FKj-2m-g1T"/>
                             <constraint firstItem="bd9-xn-M1v" firstAttribute="trailing" secondItem="Yof-2f-n9w" secondAttribute="trailing" constant="10" id="P5o-I9-BYq"/>
                             <constraint firstItem="k6D-Zy-efs" firstAttribute="leading" secondItem="bd9-xn-M1v" secondAttribute="leading" constant="10" id="hNj-nZ-blM"/>
                             <constraint firstItem="ggP-y7-Zd8" firstAttribute="top" secondItem="Yof-2f-n9w" secondAttribute="bottom" constant="73" id="k3V-nR-Z52"/>
+                            <constraint firstItem="bd9-xn-M1v" firstAttribute="trailing" secondItem="tYm-73-rLz" secondAttribute="trailing" id="kK4-1j-42F"/>
                             <constraint firstItem="bd9-xn-M1v" firstAttribute="trailing" secondItem="k6D-Zy-efs" secondAttribute="trailing" constant="10" id="naD-ox-q6j"/>
                             <constraint firstItem="k6D-Zy-efs" firstAttribute="top" secondItem="ggP-y7-Zd8" secondAttribute="bottom" constant="12" id="rud-h1-kPa"/>
                             <constraint firstItem="ggP-y7-Zd8" firstAttribute="leading" secondItem="bd9-xn-M1v" secondAttribute="leading" constant="10" id="uNu-GP-jAQ"/>
@@ -619,6 +660,7 @@
                         <viewLayoutGuide key="safeArea" id="bd9-xn-M1v"/>
                     </view>
                     <connections>
+                        <outlet property="detailTable" destination="tYm-73-rLz" id="M1I-VD-Q4B"/>
                         <outlet property="detailWebView" destination="Yof-2f-n9w" id="lVU-UH-eD8"/>
                         <outlet property="shareButton" destination="k6D-Zy-efs" id="Ecv-a1-NPI"/>
                     </connections>

@@ -236,8 +236,10 @@ class ConversationService {
                         if chatTxt.characters.count>0 {
                             self.delegate?.didReceiveMessage(withText: chatTxt, options: nil)
                         }
-                        let videoUrl = URL(string: optionsString)
-                        self.delegate?.didReceiveVideo(withUrl: videoUrl!)
+                        if let videoUrl = URL(string: optionsString) {
+                            self.delegate?.didReceiveVideo(withUrl: videoUrl)
+
+                        }
                         
                     }else{
                         self.delegate?.didReceiveMessage(withText: chatTxt, options: nil)

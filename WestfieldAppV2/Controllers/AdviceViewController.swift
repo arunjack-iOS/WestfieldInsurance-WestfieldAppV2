@@ -80,8 +80,8 @@ class AdviceViewController: UIViewController, watsonChatCellDelegate,AVAudioPlay
         chatTextField.chatViewController = self
 
         micButton.addTarget(self, action: #selector(userMicButton(sender:)), for: UIControlEvents.touchDown);
-        micButton.addTarget(self, action: #selector(stopRecordings(sender:)), for: UIControlEvents.touchUpInside);
-        micButton.addTarget(self, action: #selector(stopRecordings(sender:)), for: UIControlEvents.touchUpOutside);
+//        micButton.addTarget(self, action: #selector(stopRecordings(sender:)), for: UIControlEvents.touchUpInside);
+//        micButton.addTarget(self, action: #selector(stopRecordings(sender:)), for: UIControlEvents.touchUpOutside);
 
         
         chatTableView.autoresizingMask = UIViewAutoresizing.flexibleHeight;
@@ -108,7 +108,13 @@ class AdviceViewController: UIViewController, watsonChatCellDelegate,AVAudioPlay
         chatTableBottomConstraint.constant = 10
         
         var screenRect = UIScreen.main.bounds
-        screenRect.size.height = 90
+        if UIScreen.main.bounds.height == 812 {
+            screenRect.size.height = 88
+
+        } else {
+            screenRect.size.height = 64
+
+        }
         //create a new view with the same size
          coverView = UIView(frame: screenRect)
         // change the background color to black and the opacity to 0.6
@@ -359,12 +365,7 @@ class AdviceViewController: UIViewController, watsonChatCellDelegate,AVAudioPlay
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "watsonSpeakingNotification"), object:self)
                 }
             }
-            
-            
         }
-        
-        
-        
     }
     
     @objc func videoEndedPlaying() {
@@ -563,7 +564,9 @@ extension AdviceViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: VideoViewCell.self),
                                                      for: indexPath) as! VideoViewCell
             urlValue = message.videoUrl!
+            cell.delegate = self
             cell.videoUrls = completedVideoURL
+            cell.page = ""
             //print(completedVideoURL)
             cell.configure(withMessage: message)
             
@@ -1028,6 +1031,40 @@ extension AdviceViewController: TextToSpeechServiceDelegate {
             print("Portrait1")
         }
     }
+    
+    
+}
+// MARK:- Video Cell Delegate
+extension AdviceViewController : videoCellDelegate {
+    func loadFeedbackPage(_ videoUrl: String, cell: VideoViewCell) {
+        
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let detailVc = storyBoard.instantiateViewController(withIdentifier: "WatsonChatDetail") as! WatsonChatDetailViewController
+        detailVc.urlStr = videoUrl
+        detailVc.msgType = .Video
+        detailVc.vUrls = completedVideoURL
+        detailVc.currentMsg = cell.message
+        self.navigationController?.pushViewController(detailVc, animated: true)
+
+    }
+    
+    func reloadVideo() {
+        chatTableView.reloadData()
+
+    }
+    
+    
+    func sharingVideoUrl(_ videoUrl: String) {
+        
+        let text = "Time for a little safety warm up"
+        let myWebsite = NSURL(string:videoUrl)
+        let shareAll = [text  , myWebsite ?? ""] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    
     
     
 }

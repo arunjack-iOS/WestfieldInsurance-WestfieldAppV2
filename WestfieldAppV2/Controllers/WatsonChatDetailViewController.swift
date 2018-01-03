@@ -8,14 +8,18 @@
 
 import UIKit
 
+// MARK: - Type
 class WatsonChatDetailViewController: UIViewController, UIWebViewDelegate {
 
     var urlStr: String?
     @IBOutlet weak var detailWebView: UIWebView!
     @IBOutlet weak var shareButton: UIButton!
     var indicatorView = ActivityView()
+    var currentMsg: Message?
+    var msgType: MessageType?
+    var vUrls = [URL]()
     
-    
+    @IBOutlet weak var detailTable: UITableView!
     
     
     override func viewDidLoad() {
@@ -38,9 +42,27 @@ class WatsonChatDetailViewController: UIViewController, UIWebViewDelegate {
         
         self.detailWebView.delegate = self
         
-        self.loadUrlToWebView()
+        detailTable.rowHeight = UITableViewAutomaticDimension
+        detailTable.estimatedRowHeight = 140
+        detailTable.scrollsToTop = false
+
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        
+        if msgType == .Video {
+            self.detailTable.isHidden = false
+            self.detailWebView.isHidden = true
+        } else {
+            
+            self.detailTable.isHidden = true
+            self.detailWebView.isHidden = false
+
+            self.loadUrlToWebView()
+        }
+    }
     func stopAnimating() {
 
         indicatorView.stopAnimating()
@@ -77,7 +99,6 @@ class WatsonChatDetailViewController: UIViewController, UIWebViewDelegate {
 
     
     func loadUrlToWebView() {
-        
         
         print("myUrl>>>>>>\(urlStr)")
         
@@ -145,6 +166,62 @@ class WatsonChatDetailViewController: UIViewController, UIWebViewDelegate {
     }
     */
 
+}
+
+extension WatsonChatDetailViewController: videoCellDelegate {
+    func loadFeedbackPage(_ videoUrl: String, cell: VideoViewCell) {
+        
+    }
+    
+    func sharingVideoUrl(_ videoUrl: String) {
+        
+    }
+    
+    func reloadVideo() {
+        detailTable.reloadData()
+    }
+    
+    
+}
+
+// MARK: - UITableViewDataSource
+extension WatsonChatDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: VideoViewCell.self),
+                                                 for: indexPath) as! VideoViewCell
+        cell.delegate = self
+        cell.videoUrls = vUrls
+//        //print(completedVideoURL)
+        cell.page = "detail"
+        cell.configure(withMessage: currentMsg!)
+//
+       // cell.chatViewController = self
+        return cell
+
+    }
+
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 273
+    }
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+       
+            return 273
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    }
+
+    
 }
 extension WatsonChatDetailViewController{
     func extractYoutubeIdFromLink(link: String) -> String? {

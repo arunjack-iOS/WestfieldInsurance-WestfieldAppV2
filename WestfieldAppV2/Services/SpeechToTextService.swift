@@ -21,9 +21,10 @@ class SpeechToTextService {
 
     // MARK: - Properties
     weak var delegate: SpeechToTextServiceDelegate?
-   // var speechToTextSession = SpeechToTextSession(username: GlobalConstants.dennisNotoBluemixUsernameSTT,
-                                                 // password: GlobalConstants.dennisNotoBluemixPasswordSTT)
-    
+    var speechToTextSession = SpeechToTextSession(username: GlobalConstants.dennisNotoBluemixUsernameSTT,
+                                                  password: GlobalConstants.dennisNotoBluemixPasswordSTT)
+    var specchString: String = ""
+    var finalCall: Bool = false
    var speechToText = SpeechToText(
     username: GlobalConstants.dennisNotoBluemixUsernameSTT,
     password: GlobalConstants.dennisNotoBluemixPasswordSTT
@@ -39,6 +40,7 @@ class SpeechToTextService {
 
     func startRecording() {
         
+        finalCall = false
 //        speechToTextSession.connect()
 //        var settings = RecognitionSettings(contentType: .opus)
 //        settings.interimResults = false
@@ -56,14 +58,27 @@ class SpeechToTextService {
         settings.interimResults = true
         speechToText.recognizeMicrophone(settings: settings, failure: failure) { results in
         
-            print(results.bestTranscript)
-            let trimmedString = results.bestTranscript.trimmingCharacters(in: .whitespacesAndNewlines)
+//            let trimmedString = results.bestTranscript.trimmingCharacters(in: .whitespacesAndNewlines)
+//
+//            if self.specchString == results.bestTranscript {
+//                self.specchString = ""
+//            } else {
+//            }
             
-            print(trimmedString)
+            self.specchString = results.bestTranscript
 
-                            self.delegate?.didFinishTranscribingSpeech(withText: results.bestTranscript)
+            print(results.bestTranscript)
+
+            if self.finalCall {
+                self.finalCall = false
+                self.delegate?.didFinishTranscribingSpeech(withText: self.specchString)
+            }
+            
+         //   print(trimmedString)
+
         }
 
+        
     }
 
     func failure(error: Error) {
@@ -96,7 +111,10 @@ class SpeechToTextService {
     }
     
      func stopTranscribing() {
+        
+        finalCall = true
         speechToText.stopRecognizeMicrophone()
+
     }
 
 

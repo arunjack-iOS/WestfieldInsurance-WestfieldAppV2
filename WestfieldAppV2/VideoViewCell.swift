@@ -12,6 +12,13 @@ import AVKit
 import youtube_ios_player_helper
 
 
+protocol videoCellDelegate
+{
+    func loadFeedbackPage(_ videoUrl: String, cell: VideoViewCell)
+    func sharingVideoUrl(_ videoUrl: String)
+    func reloadVideo()
+
+}
 class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
 
     // MARK: - Outlets
@@ -32,6 +39,9 @@ class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
     var currentVideoType = ""
     var videoOptions: [String] = ["RELOAD VIDEO", "GIVE FEEDBACK", "SHARE"]
     var yVal: CGFloat = 0.0
+    var videlLink: String = ""
+    var delegate: videoCellDelegate?
+    var page: String = ""
     // MARK: - VideoUrl
    // var videoUrls = [URL]()
 
@@ -58,6 +68,14 @@ class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
     ///
     /// - Parameter message: Message instance
     func configure(withMessage message: Message) {
+        
+        if page == "detail" {
+            videoOptions = ["RELOAD VIDEO"]
+            
+        } else {
+            videoOptions = ["RELOAD VIDEO", "GIVE FEEDBACK", "SHARE"]
+        }
+
         self.message = message
         for view in self.videoView.subviews
         {
@@ -67,6 +85,7 @@ class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
          print(Array(Set(videoUrls)))
 
         let urlString: String = message.videoUrl!.absoluteString
+        videlLink = urlString
         let videoId = self.extractYoutubeIdFromLink(link: urlString)
         
         self.videoView.layer.cornerRadius = 4.0
@@ -86,7 +105,7 @@ class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
             playerViewController.view.frame = CGRect(x: 0,
                                                      y: 0,
                                                      width: frame.size.width - 40,
-                                                     height: frame.size.height - 135)
+                                                     height: frame.size.height - CGFloat(45*videoOptions.count))
             self.videoView.addSubview(playerViewController.view)
             print(Array(Set(videoUrls)))
             if videoUrls.contains(message.videoUrl!) == false {
@@ -104,7 +123,7 @@ class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
         }else{
             
             currentVideoType = "YOUTUBE"
-            ytplayer.frame = CGRect(x: 0,y: 0,width: frame.size.width - 40 ,height: frame.size.height - 135)
+            ytplayer.frame = CGRect(x: 0,y: 0,width: frame.size.width - 40 ,height: frame.size.height - CGFloat(45*videoOptions.count))
             self.videoView.addSubview(ytplayer)
             ytplayer.delegate = self
             self.ytplayer.load(withVideoId: videoId!, playerVars: ["enablejsapi":"1","showinfo":"0","rel":"0","playsinline":"1","fs":"1","autoplay":"1"])
@@ -121,7 +140,6 @@ class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
 
             
         }
-        
         
         self.addVideoShareView(yVal)
     }
@@ -156,23 +174,19 @@ class VideoViewCell: UITableViewCell,YTPlayerViewDelegate {
 
 
     }
-    
+    //"RELOAD VIDEO", "GIVE FEEDBACK", "SHARE"
     @objc func selectOptionsAction (sender: UIButton) {
 
-        if sender.tag == 0 {
-            
-            if currentVideoType == "BOX" {
-                
-            } else {
-                ytplayer.playVideo()
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "videoPlayingNotification"), object:self)
+        if sender.currentTitle == "RELOAD VIDEO" {
+            delegate?.reloadVideo()
+        } else if sender.currentTitle == "GIVE FEEDBACK" {
+            delegate?.loadFeedbackPage(videlLink, cell: self)
 
-            }
-        } else if sender.tag == 1 {
-            
-        } else if sender.tag == 1 {
-            
+        }else if sender.currentTitle == "SHARE" {
+            delegate?.sharingVideoUrl(videlLink)
+
         }
+
     }
     
     func playerView(_ playerView: YTPlayerView, didChangeTo state: YTPlayerState) {
@@ -316,6 +330,11 @@ extension UITableViewCell{
     
 }
 
+extension UIButton {
+    func setMessage(_ message: Message)  {
+        
+    }
+}
 extension AVPlayer {
     var isPlaying: Bool {
         return rate != 0 && error == nil
